@@ -140,6 +140,8 @@ module Paperclip
       when 'mp4'
         @convert_options[:output][:acodec] = 'aac'
         @convert_options[:output][:strict] = 'experimental'
+        @convert_options[:output][:qmax] = 0
+        @convert_options[:output][:qmin] = 1
       end
 
       Ffmpeg.log("Adding Source") if @whiny
@@ -150,7 +152,7 @@ module Paperclip
       parameters << @convert_options[:output].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       parameters << "-y :dest"
 
-      Ffmpeg.log("Building Parameters WD") if @whiny
+      Ffmpeg.log("Building Parameters") if @whiny
       parameters = parameters.flatten.compact.join(" ").strip.squeeze(" ")
 
       Ffmpeg.log(parameters)
