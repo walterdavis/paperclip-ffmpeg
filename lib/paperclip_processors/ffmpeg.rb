@@ -150,7 +150,7 @@ module Paperclip
       parameters << @convert_options[:input].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       parameters << "-i :source"
       parameters << @convert_options[:output].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
-      parameters << "-qmax 0 -qmin 3" if @format.to_s == 'mp4'
+      parameters << "-qmax 1 -qmin 3" if @format.to_s == 'mp4'
       parameters << "-y :dest"
       Ffmpeg.log(parameters) if @format.to_s == 'mp4'
 
