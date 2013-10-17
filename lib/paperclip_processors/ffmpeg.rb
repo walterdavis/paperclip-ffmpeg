@@ -140,8 +140,8 @@ module Paperclip
       when 'mp4'
         @convert_options[:output][:acodec] = 'aac'
         @convert_options[:output][:strict] = 'experimental'
-        @convert_options[:output][:qmax] = '=0'
-        @convert_options[:output][:qmin] = '=1'
+        @convert_options[:quality][:qmax] = '=0'
+        @convert_options[:quality][:qmin] = '=1'
       end
 
       Ffmpeg.log("Adding Source") if @whiny
@@ -149,8 +149,11 @@ module Paperclip
       # Validations on the values. These could be either nil.
       parameters << @convert_options[:input].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       parameters << "-i :source"
+      parameters << @convert_options[:quality].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       parameters << @convert_options[:output].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       parameters << "-y :dest"
+      Ffmpeg.log('Adding Quality')
+      Ffmpeg.log(parameters)
 
       Ffmpeg.log("Building Parameters") if @whiny
       parameters = parameters.flatten.compact.join(" ").strip.squeeze(" ")
