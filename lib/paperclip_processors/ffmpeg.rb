@@ -11,7 +11,8 @@ module Paperclip
     def initialize file, options = {}, attachment = nil
       @convert_options = {
         :input => {},
-        :output => { :y => nil }
+        :output => { :y => nil },
+        :quality => { :y => nil }
       }
       unless options[:convert_options].nil? || options[:convert_options].class != Hash
         unless options[:convert_options][:input].nil? || options[:convert_options][:input].class != Hash
