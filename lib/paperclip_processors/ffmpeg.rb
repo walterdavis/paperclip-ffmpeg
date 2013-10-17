@@ -140,8 +140,8 @@ module Paperclip
       when 'mp4'
         @convert_options[:output][:acodec] = 'aac'
         @convert_options[:output][:strict] = 'experimental'
-        @convert_options[:output][:qmax] = 0
-        @convert_options[:output][:qmin] = 1
+        @convert_options[:output][:qmax] = '=0'
+        @convert_options[:output][:qmin] = '=1'
       end
 
       Ffmpeg.log("Adding Source") if @whiny
