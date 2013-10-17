@@ -150,7 +150,7 @@ module Paperclip
       parameters << @convert_options[:output].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       parameters << "-y :dest"
 
-      Ffmpeg.log("Building Parameters") if @whiny
+      Ffmpeg.log("Building Parameters WD") if @whiny
       parameters = parameters.flatten.compact.join(" ").strip.squeeze(" ")
 
       Ffmpeg.log(parameters)
