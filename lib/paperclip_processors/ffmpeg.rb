@@ -12,7 +12,7 @@ module Paperclip
       @convert_options = {
         :input => {},
         :output => { :y => nil },
-        :quality => { :y => nil }
+        :quality => {}
       }
       unless options[:convert_options].nil? || options[:convert_options].class != Hash
         unless options[:convert_options][:input].nil? || options[:convert_options][:input].class != Hash
