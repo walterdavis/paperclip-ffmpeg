@@ -147,11 +147,11 @@ module Paperclip
       Ffmpeg.log("Adding Source") if @whiny
       # Add source
       # Validations on the values. These could be either nil.
-      # parameters << @convert_options[:input].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
+      parameters << @convert_options[:input].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       parameters << "-i :source"
-      # parameters << @convert_options[:output].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
+      parameters << @convert_options[:output].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       # parameters << "-b:v 3500k" if (@format.to_s == 'm4v' || @format.to_s == 'mp4' || @format.to_s == 'webm')
-      parameters << '-c:v libx264 -b:v 3500k -me_method umh -pix_fmt yuv420p -s 1280x720 -profile:v baseline -c:a libfaac -b:a 128k -ar 48000' if ['mp4', 'm4v'].include?( @format.to_s )
+      parameters << '-c:v libx264 -b:v 3500k -me_method umh -pix_fmt yuv420p -profile:v baseline -c:a libfaac -b:a 128k -ar 48000' if ['mp4', 'm4v'].include?( @format.to_s )
       parameters << "-y :dest"
       Ffmpeg.log(parameters) if ['mp4', 'm4v', 'ogv', 'webm'].include?( @format.to_s )
 
