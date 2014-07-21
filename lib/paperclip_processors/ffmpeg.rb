@@ -151,9 +151,9 @@ module Paperclip
       parameters << "-i :source"
       # parameters << @convert_options[:output].map { |k,v| "-#{k.to_s} #{v} " if !v.nil? && (v.is_a?(Numeric) || !v.empty?) }
       # parameters << "-b:v 3500k" if (@format.to_s == 'm4v' || @format.to_s == 'mp4' || @format.to_s == 'webm')
-      parameters << '-c:v libx264 -b:v 3500k -me_method umh -pix_fmt yuv420p -s 1280x720 -profile:v baseline -c:a libfaac -b:a 128k -ar 48000' if ['mp4', 'm4v'].include? @format.to_s 
-      parameters << ":dest"
-      Ffmpeg.log(parameters) if ['mp4', 'm4v', 'ogv', 'webm'].include? @format.to_s
+      parameters << '-c:v libx264 -b:v 3500k -me_method umh -pix_fmt yuv420p -s 1280x720 -profile:v baseline -c:a libfaac -b:a 128k -ar 48000' if ['mp4', 'm4v'].include?( @format.to_s )
+      parameters << "-y :dest"
+      Ffmpeg.log(parameters) if ['mp4', 'm4v', 'ogv', 'webm'].include?( @format.to_s )
 
       Ffmpeg.log("Building Parameters") if @whiny
       parameters = parameters.flatten.compact.join(" ").strip.squeeze(" ")
@@ -180,11 +180,11 @@ module Paperclip
         # Matching lines like:
         # Video: h264, yuvj420p, 640x480 [PAR 72:72 DAR 4:3], 10301 kb/s, 30 fps, 30 tbr, 600 tbn, 600 tbc
         if line =~ /Video:(.*)/
-           v = $1.to_s
-           size = v.match(/\d{3,5}x\d{3,5}/).to_s
-           meta[:size] = size
-           meta[:aspect] = size.split('x').first.to_f / size.split('x').last.to_f
-         end
+          v = $1.to_s
+          size = v.match(/\d{3,5}x\d{3,5}/).to_s
+          meta[:size] = size
+          meta[:aspect] = size.split('x').first.to_f / size.split('x').last.to_f
+        end
         # Matching Duration: 00:01:31.66, start: 0.000000, bitrate: 10404 kb/s
         if line =~ /Duration:(\s.?(\d*):(\d*):(\d*\.\d*))/
           meta[:length] = $2.to_s + ":" + $3.to_s + ":" + $4.to_s
