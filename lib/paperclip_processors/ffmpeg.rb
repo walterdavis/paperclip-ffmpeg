@@ -154,7 +154,8 @@ module Paperclip
       parameters << '-c:v libx264 -b:v 3500k -me_method umh -pix_fmt yuv420p -profile:v baseline -c:a libfaac -b:a 128k -ar 48000' if ['mp4', 'm4v'].include?( @format.to_s )
       parameters << '-c:v libvpx -b:v 3500k -c:a libvorbis -b:a 128k' if ['webm'].include?( @format.to_s )
       parameters << "-y :dest"
-      Ffmpeg.log(parameters) if ['mp4', 'm4v', 'ogv', 'webm'].include?( @format.to_s )
+      Ffmpeg.log('Parameters array')
+      Ffmpeg.log(parameters.inspect) if ['mp4', 'm4v', 'ogv', 'webm'].include?( @format.to_s )
 
       Ffmpeg.log("Building Parameters") if @whiny
       parameters = parameters.flatten.compact.join(" ").strip.squeeze(" ")
