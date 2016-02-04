@@ -128,7 +128,7 @@ module Paperclip
       when 'jpg', 'jpeg', 'png', 'gif' # Images
         @convert_options[:input][:ss] = @time
         @convert_options[:output][:vframes] = 1
-        @convert_options[:output][:f] = 'image2'
+        @convert_options[:output][:f] = 'rawvideo'
       when 'webm' # WebM
         @convert_options[:output][:acodec] = 'libvorbis'
         @convert_options[:output][:vcodec] = 'libvpx'
