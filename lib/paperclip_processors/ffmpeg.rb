@@ -192,7 +192,7 @@ module Paperclip
           meta[:length] = $2.to_s + ":" + $3.to_s + ":" + $4.to_s
         end
       end
-      Paperclip.log("[ffmpeg] Command Success") if @whiny
+      Paperclip.log("[ffmpeg] Identify reports #{meta[:size]}") if @whiny
       meta
     end
 
